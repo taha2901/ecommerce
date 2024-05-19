@@ -53,8 +53,8 @@ class Favourite extends StatelessWidget {
                         child: Row(
                           children: [
                             Image.asset(
-                              // product?.image ?? '',
-                              'images/auth_background.png',
+                              // product?.image ?? '', 
+                              '',
                               width: 100,
                               height: 100,
                               fit: BoxFit.fill,
