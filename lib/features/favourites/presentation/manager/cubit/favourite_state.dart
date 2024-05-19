@@ -7,11 +7,15 @@ sealed class FavouriteState  {
 final class FavouriteInitial extends FavouriteState {}
 
 
-final class ShopLoadingGetFavouriteState extends FavouriteState {}
+final class FavLoadState extends FavouriteState {}
 
-final class ShopSucessGetFavouriteState extends FavouriteState {}
+final class FavSuccesState extends FavouriteState {
+  final FavouriteModel fav;
 
-final class ShopErrorGetFavouriteState extends FavouriteState {}
+  FavSuccesState({required this.fav});
+}
+
+final class FavErrorState extends FavouriteState {}
 
 final class AddOrRemoveFromFavoritesSuccessState extends FavouriteState {}
 
