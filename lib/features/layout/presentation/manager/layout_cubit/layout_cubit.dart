@@ -2,7 +2,7 @@ import 'package:addinfo/features/carts/presentation/views/cart_view.dart';
 import 'package:addinfo/features/categories/presentation/views/categories_view.dart';
 import 'package:addinfo/features/favourites/presentation/views/favourite_view.dart';
 import 'package:addinfo/features/home/presentation/views/home_view.dart';
-import 'package:addinfo/features/profile/presentation/views/home_view.dart';
+import 'package:addinfo/features/profile/presentation/views/profile_view.dart';
 import 'package:bloc/bloc.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';

@@ -2,7 +2,8 @@ import 'package:dio/dio.dart';
 
 class DioHelper {
   static Dio? dio;
-  static init() {
+
+  static void init() {
     dio = Dio(
       BaseOptions(
         baseUrl: 'https://student.valuxapps.com/api/',
@@ -17,15 +18,22 @@ class DioHelper {
     String lang = 'en',
     String? token,
   }) async {
-    dio!.options.headers = {
+    dio?.options.headers = {
       'Content-Type': 'application/json',
       'lang': lang,
       'Authorization': token ?? '',
     };
-    return await dio!.get(
-      url,
-      queryParameters: query,
-    );
+
+    try {
+      return await dio!.get(
+        url,
+        queryParameters: query,
+      );
+    } on DioException catch (e) {
+      // يمكنك معالجة الأخطاء هنا وعرض رسالة مناسبة للمستخدم
+      print('Error: ${e.response?.statusCode} - ${e.message}');
+      throw e; // إعادة رمي الاستثناء ليمكن التعامل معه في مكان آخر إذا لزم الأمر
+    }
   }
 
   Future<Response> postData({
@@ -35,15 +43,22 @@ class DioHelper {
     String lang = 'ar',
     String? token,
   }) async {
-    dio!.options.headers = {
+    dio?.options.headers = {
       'lang': lang,
       'Authorization': token,
     };
-    return await dio!.post(
-      url,
-      queryParameters: query,
-      data: data,
-    );
+
+    try {
+      return await dio!.post(
+        url,
+        queryParameters: query,
+        data: data,
+      );
+    } on DioException catch (e) {
+      // يمكنك معالجة الأخطاء هنا وعرض رسالة مناسبة للمستخدم
+      print('Error: ${e.response?.statusCode} - ${e.message}');
+      throw e; // إعادة رمي الاستثناء ليمكن التعامل معه في مكان آخر إذا لزم الأمر
+    }
   }
 
   Future<Response> putData({
@@ -53,14 +68,21 @@ class DioHelper {
     String lang = 'ar',
     String? token,
   }) async {
-    dio!.options.headers = {
+    dio?.options.headers = {
       'lang': lang,
       'Authorization': token,
     };
-    return await dio!.put(
-      url,
-      queryParameters: query,
-      data: data,
-    );
+
+    try {
+      return await dio!.put(
+        url,
+        queryParameters: query,
+        data: data,
+      );
+    } on DioException catch (e) {
+      // يمكنك معالجة الأخطاء هنا وعرض رسالة مناسبة للمستخدم
+      print('Error: ${e.response?.statusCode} - ${e.message}');
+      throw e; // إعادة رمي الاستثناء ليمكن التعامل معه في مكان آخر إذا لزم الأمر
+    }
   }
 }

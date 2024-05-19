@@ -7,6 +7,7 @@ import 'package:addinfo/features/categories/presentation/manager/cubit/category_
 import 'package:addinfo/features/favourites/presentation/manager/cubit/favourite_cubit.dart';
 import 'package:addinfo/features/home/presentation/manager/cubit/home_cubit.dart';
 import 'package:addinfo/features/layout/presentation/view/souq_layout.dart';
+import 'package:addinfo/features/profile/presentation/manager/profile/profile_cubit.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
@@ -15,7 +16,9 @@ void main() async {
   DioHelper.init();
   await ChachHelper.init();
   userToken = ChachHelper.getData(key: 'token');
+  currentPassword = ChachHelper.getData(key: 'password');
   debugPrint('tokennnn in main is $userToken');
+  debugPrint('password in main is $currentPassword');
 
   Widget widget;
   if (userToken != null) {
@@ -48,6 +51,9 @@ class MyApp extends StatelessWidget {
         ),
         BlocProvider(
           create: (context) => CartCubit()..getCarts(),
+        ),
+        BlocProvider(
+          create: (context) => ProfileCubit()..getUserData(), 
         ),
       ],
       child: MaterialApp(

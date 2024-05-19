@@ -1,4 +1,5 @@
 import 'package:addinfo/core/helper/api.dart';
+import 'package:addinfo/core/helper/cach.dart';
 import 'package:addinfo/core/network/end_points.dart';
 import 'package:addinfo/features/auth/data/auth_model/auth.dart';
 import 'package:addinfo/features/auth/presentation/manager/login/login_state.dart';
@@ -23,6 +24,8 @@ class LoginCubit extends Cubit<LoginState> {
     ).then((value) {
       print(value.data);
       loginModel = Auth.fromJson(value.data);
+      ChachHelper.saveData(key: 'password',value: password);
+      currentPassword = ChachHelper.getData(key: 'password');
       emit(LoginSuccess(loginModel));
     }).catchError((onError) {
       print(onError.toString());
