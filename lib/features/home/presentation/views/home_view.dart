@@ -1,3 +1,4 @@
+import 'package:addinfo/features/carts/presentation/manager/cubit/cart_cubit.dart';
 import 'package:addinfo/features/categories/presentation/manager/cubit/category_cubit.dart';
 import 'package:addinfo/features/favourites/presentation/manager/cubit/favourite_cubit.dart';
 import 'package:addinfo/features/home/data/home/product.dart';
@@ -119,7 +120,7 @@ class HomeView extends StatelessWidget {
                                 crossAxisCount: 2,
                                 mainAxisSpacing: 12,
                                 crossAxisSpacing: 15,
-                                childAspectRatio: 0.7),
+                                childAspectRatio: 0.6),
                         itemBuilder: (context, index) {
                           final product = HomeCubit.get(context)
                                   .filteredProducts
@@ -145,86 +146,104 @@ class HomeView extends StatelessWidget {
   }
 }
 
-Widget _productItem(
-    {required Product model,
-    required BuildContext context,
-    // required FavouriteCubit cubit,
-    }) {
-  return Container(
-    decoration: BoxDecoration(
-      borderRadius: BorderRadius.circular(4),
-      color: Colors.grey.withOpacity(0.2),
-    ),
-    padding: const EdgeInsets.symmetric(vertical: 20, horizontal: 12),
-    child: Column(
-      crossAxisAlignment: CrossAxisAlignment.start,
-      children: [
-        Expanded(
-          child: Image.network(
-            model.image!,
-            fit: BoxFit.fill,
-            width: double.infinity,
-            height: double.infinity,
-          ),
+Widget _productItem({
+  required Product model,
+  required BuildContext context,
+  // required FavouriteCubit cubit,
+}) {
+  return Stack(
+    alignment: Alignment.bottomCenter,
+    children: [
+      Container(
+        decoration: BoxDecoration(
+          borderRadius: BorderRadius.circular(4),
+          color: Colors.grey.withOpacity(0.2),
         ),
-        const SizedBox(
-          height: 5,
-        ),
-        Text(
-          model.name!,
-          style: const TextStyle(
-              fontWeight: FontWeight.bold,
-              fontSize: 16,
-              overflow: TextOverflow.ellipsis),
-        ),
-        const SizedBox(
-          height: 2,
-        ),
-        Row(
+        padding: const EdgeInsets.symmetric(vertical: 40, horizontal: 12),
+        child: Column(
+          crossAxisAlignment: CrossAxisAlignment.start,
           children: [
             Expanded(
-              child: Row(
-                children: [
-                  FittedBox(
-                      fit: BoxFit.scaleDown,
-                      child: Text(
-                        "${model.price!} \$",
-                        style: const TextStyle(fontSize: 13),
-                      )),
-                  const SizedBox(
-                    width: 5,
-                  ),
-                  FittedBox(
-                    fit: BoxFit.scaleDown,
-                    child: Text(
-                      "${model.oldPrice!} \$",
-                      style: const TextStyle(
-                          color: Colors.grey,
-                          fontSize: 12.5,
-                          decoration: TextDecoration.lineThrough),
-                    ),
-                  )
-                ],
+              child: Image.network(
+                model.image!,
+                fit: BoxFit.fill,
+                width: double.infinity,
+                height: double.infinity,
               ),
             ),
-            GestureDetector(
-              child: Icon(
-                Icons.favorite,
-                size: 20,
-                color:
-                //  FavouriteCubit.get(context).favoriteID.contains(model.id.toString())
-                //     ? Colors.red
-                //     :
-                     Colors.grey,
-              ),
-              onTap: () {
-                // Add | remove product from favorites
-                // FavouriteCubit.get(context).addOrRemoveFromFavorites(productID: model.id.toString());
-              },
+            const SizedBox(
+              height: 5,
+            ),
+            Text(
+              model.name!,
+              style: const TextStyle(
+                  fontWeight: FontWeight.bold,
+                  fontSize: 16,
+                  overflow: TextOverflow.ellipsis),
+            ),
+            const SizedBox(
+              height: 2,
+            ),
+            Row(
+              children: [
+                Expanded(
+                  child: Row(
+                    children: [
+                      FittedBox(
+                          fit: BoxFit.scaleDown,
+                          child: Text(
+                            "${model.price!} \$",
+                            style: const TextStyle(fontSize: 13),
+                          )),
+                      const SizedBox(
+                        width: 5,
+                      ),
+                      FittedBox(
+                        fit: BoxFit.scaleDown,
+                        child: Text(
+                          "${model.oldPrice!} \$",
+                          style: const TextStyle(
+                              color: Colors.grey,
+                              fontSize: 12.5,
+                              decoration: TextDecoration.lineThrough),
+                        ),
+                      )
+                    ],
+                  ),
+                ),
+                GestureDetector(
+                  child: Icon(
+                    Icons.favorite,
+                    size: 20,
+                    color: FavouriteCubit.get(context)
+                            .favoriteID
+                            .contains(model.id.toString())
+                        ? Colors.red
+                        : Colors.grey,
+                  ),
+                  onTap: () {
+                    // Add | remove product from favorites
+                    FavouriteCubit.get(context).addOrRemoveFromFavorites(
+                        productID: model.id.toString());
+                  },
+                ),
+              ],
             ),
           ],
         ),
-      ],
-    ),
+      ),
+      CircleAvatar(
+        backgroundColor: Colors.grey.withOpacity(0.3),
+        child: IconButton(
+          onPressed: () {
+            CartCubit.get(context).addOrRemoveFromCarts(id: model.id.toString());
+          },
+          icon:  Icon(
+            Icons.shopping_cart,
+            color: CartCubit.get(context).cartsId.contains(model.id.toString()) ?Colors.red : Colors.white
+          ),
+        ),
+      )
+    ],
   );
 }

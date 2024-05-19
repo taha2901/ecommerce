@@ -2,6 +2,7 @@ import 'package:addinfo/core/helper/api.dart';
 import 'package:addinfo/core/helper/cach.dart';
 import 'package:addinfo/core/network/end_points.dart';
 import 'package:addinfo/features/auth/presentation/view/login.dart';
+import 'package:addinfo/features/carts/presentation/manager/cubit/cart_cubit.dart';
 import 'package:addinfo/features/categories/presentation/manager/cubit/category_cubit.dart';
 import 'package:addinfo/features/favourites/presentation/manager/cubit/favourite_cubit.dart';
 import 'package:addinfo/features/home/presentation/manager/cubit/home_cubit.dart';
@@ -44,6 +45,9 @@ class MyApp extends StatelessWidget {
         ),
         BlocProvider(
           create: (context) => FavouriteCubit()..getFavouriteData(),
+        ),
+        BlocProvider(
+          create: (context) => CartCubit()..getCarts(),
         ),
       ],
       child: MaterialApp(
