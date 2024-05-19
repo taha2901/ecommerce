@@ -1,4 +1,5 @@
 import 'package:addinfo/core/helper/api.dart';
+import 'package:addinfo/core/helper/cach.dart';
 import 'package:addinfo/core/network/end_points.dart';
 import 'package:addinfo/features/profile/data/change_password/change_password.dart';
 import 'package:addinfo/features/profile/data/profile_model/profile_model.dart';
@@ -36,7 +37,7 @@ class ProfileCubit extends Cubit<ProfileState> {
   ChangePassword? changePassword;
 
   void changePasswordMethod({
-    required String currentPassword,
+    required String userCurrentPassword,
     required String newPassword,
   }) {
     emit(ChangePassLoaded());
@@ -49,7 +50,10 @@ class ProfileCubit extends Cubit<ProfileState> {
       },
     ).then((value) {
       print('Change password success: ${value.data}');
+
       changePassword = ChangePassword.fromJson(value.data);
+      ChachHelper.saveData(key: 'password' , value: newPassword);
+      currentPassword = ChachHelper.getData(key: 'password');
       emit(ChangePassSuccess(changePassword!));
     }).catchError((onError) {
       if (onError is DioError) {

@@ -62,7 +62,7 @@ class ChangePasswordScreen extends StatelessWidget {
                       {
                         if( newPasswordController.text.length >= 6 )
                         {
-                          cubit.changePasswordMethod(currentPassword: currentPassword!, newPassword: newPasswordController.text.trim());
+                          cubit.changePasswordMethod(userCurrentPassword: currentPassword!, newPassword: newPasswordController.text.trim());
                         }
                         else
                         {
