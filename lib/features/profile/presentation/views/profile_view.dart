@@ -1,6 +1,7 @@
 import 'package:addinfo/core/widget/colors.dart';
 import 'package:addinfo/features/profile/presentation/manager/profile/profile_cubit.dart';
 import 'package:addinfo/features/profile/presentation/views/widgets/change_password_screen.dart';
+import 'package:addinfo/features/profile/presentation/views/widgets/update_user_data_screen.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
@@ -56,7 +57,7 @@ class Profile extends StatelessWidget {
                       const SizedBox(height: 15),
                       MaterialButton(
                         onPressed: () {
-                          // Navigator.push(context, MaterialPageRoute(builder: (context) => UpdateUserDataScreen()));
+                          Navigator.push(context, MaterialPageRoute(builder: (context) => UpdateUserDataScreen()));
                         },
                         color: mainColor,
                         textColor: Colors.white,

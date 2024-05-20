@@ -34,3 +34,17 @@ final class ChangePassFailure extends ProfileState {
 
   ChangePassFailure(this.errMessage);
 }
+
+final class UpdateUserLoaded extends ProfileState {}
+
+final class UpdateUserSuccess extends ProfileState {
+  final Auth updateUser;
+
+  UpdateUserSuccess(this.updateUser);
+}
+
+final class UpdateUserFailure extends ProfileState {
+  final String errMessage;
+
+  UpdateUserFailure(this.errMessage);
+}
