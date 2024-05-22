@@ -162,16 +162,19 @@ Widget _productItem({
                   borderRadius: BorderRadius.circular(4),
                   color: Colors.grey.withOpacity(0.2),
                 ),
-                padding: const EdgeInsets.symmetric(vertical: 40, horizontal: 12),
+                padding:
+                    const EdgeInsets.symmetric(vertical: 40, horizontal: 12),
                 child: Column(
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
                     Expanded(
                       child: Image.network(
                         model.image!,
-                        fit: BoxFit.fill,
-                        width: double.infinity,
                         height: double.infinity,
+                        width: double.infinity,
+                        fit: BoxFit.fill,
+                        errorBuilder: (context, error, stackTrace) =>
+                            const Icon(Icons.error),
                       ),
                     ),
                     const SizedBox(
@@ -227,8 +230,9 @@ Widget _productItem({
                           ),
                           onTap: () {
                             // إضافة أو إزالة المنتج من المفضلة
-                            FavouriteCubit.get(context).addOrRemoveFromFavorites(
-                                productID: model.id.toString());
+                            FavouriteCubit.get(context)
+                                .addOrRemoveFromFavorites(
+                                    productID: model.id.toString());
                           },
                         ),
                       ],
@@ -240,13 +244,16 @@ Widget _productItem({
                 backgroundColor: Colors.grey.withOpacity(0.3),
                 child: IconButton(
                   onPressed: () {
-                    CartCubit.get(context).addOrRemoveFromCarts(id: model.id.toString());
+                    CartCubit.get(context)
+                        .addOrRemoveFromCarts(id: model.id.toString());
                   },
                   // تغيير حالة الأيقونة بناءً على حالة الـCubit
-                  icon:  Icon(
-                    Icons.shopping_cart,
-                    color: CartCubit.get(context).cartsId.contains(model.id.toString()) ?Colors.red : Colors.white
-                  ),
+                  icon: Icon(Icons.shopping_cart,
+                      color: CartCubit.get(context)
+                              .cartsId
+                              .contains(model.id.toString())
+                          ? Colors.red
+                          : Colors.white),
                 ),
               )
             ],

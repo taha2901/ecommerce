@@ -57,92 +57,101 @@ class Carts extends StatelessWidget {
                       final cartItem = cubit.data!.cartItems![index];
                       final product = cartItem.product;
 
-                      return Container(
-                        padding: const EdgeInsets.all(10),
-                        decoration: const BoxDecoration(color: fourthColor),
-                        child: Row(
-                          children: [
-                            Image.network(
-                              product!.image!,
-                              height: 100,
-                              width: 100,
-                              fit: BoxFit.fill,
-                              errorBuilder: (context, error, stackTrace) =>
-                                  const Icon(Icons.error),
-                            ),
-                            const SizedBox(width: 12.5),
-                            Expanded(
-                              child: Column(
-                                crossAxisAlignment: CrossAxisAlignment.start,
-                                children: [
-                                  Text(
-                                    product.name!,
-                                    style: const TextStyle(
-                                        color: mainColor,
-                                        fontSize: 17,
-                                        fontWeight: FontWeight.bold,
-                                        overflow: TextOverflow.ellipsis),
-                                  ),
-                                  const SizedBox(
-                                    height: 5,
-                                  ),
-                                  Row(
+                      // استخدام BlocBuilder لضمان تحديث الواجهة عند تغيير حالة المفضلة
+                      return BlocBuilder<FavouriteCubit, FavouriteState>(
+                        builder: (context, favState) {
+                          return Container(
+                            padding: const EdgeInsets.all(10),
+                            decoration: const BoxDecoration(color: fourthColor),
+                            child: Row(
+                              children: [
+                                Image.network(
+                                  product!.image!,
+                                  height: 100,
+                                  width: 100,
+                                  fit: BoxFit.fill,
+                                  errorBuilder: (context, error, stackTrace) =>
+                                      const Icon(Icons.error),
+                                ),
+                                const SizedBox(width: 12.5),
+                                Expanded(
+                                  child: Column(
+                                    crossAxisAlignment: CrossAxisAlignment.start,
                                     children: [
-                                      Text("${product.price!} \$"),
+                                      Text(
+                                        product.name!,
+                                        style: const TextStyle(
+                                            color: mainColor,
+                                            fontSize: 17,
+                                            fontWeight: FontWeight.bold,
+                                            overflow: TextOverflow.ellipsis),
+                                      ),
                                       const SizedBox(
-                                        width: 5,
+                                        height: 5,
                                       ),
-                                      if (product.price != product.oldPrice)
-                                        Text(
-                                          "${product.oldPrice!} \$",
-                                          style: const TextStyle(
-                                              decoration:
-                                                  TextDecoration.lineThrough),
-                                        ),
+                                      Row(
+                                        children: [
+                                          Text("${product.price!} \$"),
+                                          const SizedBox(
+                                            width: 5,
+                                          ),
+                                          if (product.price != product.oldPrice)
+                                            Text(
+                                              "${product.oldPrice!} \$",
+                                              style: const TextStyle(
+                                                  decoration:
+                                                      TextDecoration.lineThrough),
+                                            ),
+                                        ],
+                                      ),
+                                      const SizedBox(
+                                        height: 5,
+                                      ),
+                                      Row(
+                                        mainAxisAlignment:
+                                            MainAxisAlignment.spaceBetween,
+                                        children: [
+                                          OutlinedButton(
+                                            onPressed: () {
+                                              FavouriteCubit.get(context)
+                                                  .addOrRemoveFromFavorites(
+                                                      productID:
+                                                          product.id.toString());
+                                            },
+                                            child: Icon(
+                                              Icons.favorite,
+                                              // تغيير حالة الأيقونة بناءً على حالة المفضلة
+                                              color: FavouriteCubit.get(context)
+                                                      .favoriteID
+                                                      .contains(
+                                                          product.id.toString())
+                                                  ? Colors.red
+                                                  : Colors.grey,
+                                            ),
+                                          ),
+                                          GestureDetector(
+                                            onTap: () {
+                                              // تنفيذ منطق الحذف هنا
+                                              CartCubit.get(context)
+                                                  .addOrRemoveFromCarts(
+                                                      id:
+                                                          product.id.toString());
+                                              // CartCubit.get(context).addOrRemoveFromCarts(id: product.id.toString());
+                                            },
+                                            child: const Icon(
+                                              Icons.delete,
+                                              color: Colors.red,
+                                            ),
+                                          )
+                                        ],
+                                      ),
                                     ],
                                   ),
-                                  const SizedBox(
-                                    height: 5,
-                                  ),
-                                  Row(
-                                    mainAxisAlignment:
-                                        MainAxisAlignment.spaceBetween,
-                                    children: [
-                                      OutlinedButton(
-                                        onPressed: () {
-                                          FavouriteCubit.get(context)
-                                              .addOrRemoveFromFavorites(
-                                                  productID:
-                                                      product.id.toString());
-                                        },
-                                        child: Icon(
-                                          Icons.favorite,
-                                          color: FavouriteCubit.get(context)
-                                                  .favoriteID
-                                                  .contains(
-                                                      product.id.toString())
-                                              ? Colors.red
-                                              : Colors.grey,
-                                        ),
-                                      ),
-                                      GestureDetector(
-                                        onTap: () {
-                                          // Add your delete logic here
-                                          // FavouriteCubit.get(context).addOrRemoveFromFavorites(productID:  product.id.toString());
-                                          CartCubit.get(context).addOrRemoveFromCarts(id: product.id.toString());
-                                        },
-                                        child: const Icon(
-                                          Icons.delete,
-                                          color: Colors.red,
-                                        ),
-                                      )
-                                    ],
-                                  ),
-                                ],
-                              ),
-                            )
-                          ],
-                        ),
+                                )
+                              ],
+                            ),
+                          );
+                        },
                       );
                     },
                   ),
