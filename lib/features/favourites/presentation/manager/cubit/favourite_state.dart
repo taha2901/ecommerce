@@ -1,11 +1,8 @@
 part of 'favourite_cubit.dart';
 
-sealed class FavouriteState  {
-
-}
+sealed class FavouriteState {}
 
 final class FavouriteInitial extends FavouriteState {}
-
 
 final class FavLoadState extends FavouriteState {}
 

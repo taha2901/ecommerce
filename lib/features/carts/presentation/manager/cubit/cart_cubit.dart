@@ -11,6 +11,7 @@ class CartCubit extends Cubit<CartState> {
   static CartCubit get(context) => BlocProvider.of(context);
   CartsModel? cartModel;
   Set<String> cartsId = {};
+
   Future<void> getCarts() async {
     emit(CartsLoadState());
     DioHelper().getData(url: CARTS, token: userToken).then((value) {
@@ -43,7 +44,7 @@ class CartCubit extends Cubit<CartState> {
       emit(AddOrRemoveFromCartsSuccessState());
     }).catchError((onError) {
       print(onError.toString());
-      emit(AddOrRemoveFromCartsSuccessState());
+      emit(AddOrRemoveFromCartsErrorState());
     });
   }
 }

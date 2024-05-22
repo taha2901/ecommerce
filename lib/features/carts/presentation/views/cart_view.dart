@@ -128,7 +128,8 @@ class Carts extends StatelessWidget {
                                       GestureDetector(
                                         onTap: () {
                                           // Add your delete logic here
-                                          FavouriteCubit.get(context).addOrRemoveFromFavorites(productID:  product.id.toString());
+                                          // FavouriteCubit.get(context).addOrRemoveFromFavorites(productID:  product.id.toString());
+                                          CartCubit.get(context).addOrRemoveFromCarts(id: product.id.toString());
                                         },
                                         child: const Icon(
                                           Icons.delete,

@@ -17,7 +17,6 @@ class HomeView extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    // var cubit = FavouriteCubit.get(context);
     return BlocConsumer<HomeCubit, HomeState>(
       listener: (context, state) {},
       builder: (context, state) {
@@ -133,7 +132,6 @@ class HomeView extends StatelessWidget {
                           return _productItem(
                             model: product,
                             context: context,
-                            // cubit: cubit,
                           );
                         },
                       ),
@@ -149,101 +147,112 @@ class HomeView extends StatelessWidget {
 Widget _productItem({
   required Product model,
   required BuildContext context,
-  // required FavouriteCubit cubit,
 }) {
-  return Stack(
-    alignment: Alignment.bottomCenter,
-    children: [
-      Container(
-        decoration: BoxDecoration(
-          borderRadius: BorderRadius.circular(4),
-          color: Colors.grey.withOpacity(0.2),
-        ),
-        padding: const EdgeInsets.symmetric(vertical: 40, horizontal: 12),
-        child: Column(
-          crossAxisAlignment: CrossAxisAlignment.start,
-          children: [
-            Expanded(
-              child: Image.network(
-                model.image!,
-                fit: BoxFit.fill,
-                width: double.infinity,
-                height: double.infinity,
-              ),
-            ),
-            const SizedBox(
-              height: 5,
-            ),
-            Text(
-              model.name!,
-              style: const TextStyle(
-                  fontWeight: FontWeight.bold,
-                  fontSize: 16,
-                  overflow: TextOverflow.ellipsis),
-            ),
-            const SizedBox(
-              height: 2,
-            ),
-            Row(
-              children: [
-                Expanded(
-                  child: Row(
-                    children: [
-                      FittedBox(
-                          fit: BoxFit.scaleDown,
-                          child: Text(
-                            "${model.price!} \$",
-                            style: const TextStyle(fontSize: 13),
-                          )),
-                      const SizedBox(
-                        width: 5,
+  // BlocBuilder لفحص حالة الـFavouriteCubit
+  return BlocBuilder<FavouriteCubit, FavouriteState>(
+    builder: (context, favState) {
+      // BlocBuilder لفحص حالة الـCartCubit
+      return BlocBuilder<CartCubit, CartState>(
+        builder: (context, cartState) {
+          return Stack(
+            alignment: Alignment.bottomCenter,
+            children: [
+              Container(
+                decoration: BoxDecoration(
+                  borderRadius: BorderRadius.circular(4),
+                  color: Colors.grey.withOpacity(0.2),
+                ),
+                padding: const EdgeInsets.symmetric(vertical: 40, horizontal: 12),
+                child: Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: [
+                    Expanded(
+                      child: Image.network(
+                        model.image!,
+                        fit: BoxFit.fill,
+                        width: double.infinity,
+                        height: double.infinity,
                       ),
-                      FittedBox(
-                        fit: BoxFit.scaleDown,
-                        child: Text(
-                          "${model.oldPrice!} \$",
-                          style: const TextStyle(
-                              color: Colors.grey,
-                              fontSize: 12.5,
-                              decoration: TextDecoration.lineThrough),
+                    ),
+                    const SizedBox(
+                      height: 5,
+                    ),
+                    Text(
+                      model.name!,
+                      style: const TextStyle(
+                          fontWeight: FontWeight.bold,
+                          fontSize: 16,
+                          overflow: TextOverflow.ellipsis),
+                    ),
+                    const SizedBox(
+                      height: 2,
+                    ),
+                    Row(
+                      children: [
+                        Expanded(
+                          child: Row(
+                            children: [
+                              FittedBox(
+                                  fit: BoxFit.scaleDown,
+                                  child: Text(
+                                    "${model.price!} \$",
+                                    style: const TextStyle(fontSize: 13),
+                                  )),
+                              const SizedBox(
+                                width: 5,
+                              ),
+                              FittedBox(
+                                fit: BoxFit.scaleDown,
+                                child: Text(
+                                  "${model.oldPrice!} \$",
+                                  style: const TextStyle(
+                                      color: Colors.grey,
+                                      fontSize: 12.5,
+                                      decoration: TextDecoration.lineThrough),
+                                ),
+                              )
+                            ],
+                          ),
                         ),
-                      )
-                    ],
-                  ),
+                        // تغيير حالة الأيقونة بناءً على حالة الـCubit
+                        GestureDetector(
+                          child: Icon(
+                            Icons.favorite,
+                            size: 20,
+                            color: FavouriteCubit.get(context)
+                                    .favoriteID
+                                    .contains(model.id.toString())
+                                ? Colors.red
+                                : Colors.grey,
+                          ),
+                          onTap: () {
+                            // إضافة أو إزالة المنتج من المفضلة
+                            FavouriteCubit.get(context).addOrRemoveFromFavorites(
+                                productID: model.id.toString());
+                          },
+                        ),
+                      ],
+                    ),
+                  ],
                 ),
-                GestureDetector(
-                  child: Icon(
-                    Icons.favorite,
-                    size: 20,
-                    color: FavouriteCubit.get(context)
-                            .favoriteID
-                            .contains(model.id.toString())
-                        ? Colors.red
-                        : Colors.grey,
-                  ),
-                  onTap: () {
-                    // Add | remove product from favorites
-                    FavouriteCubit.get(context).addOrRemoveFromFavorites(
-                        productID: model.id.toString());
+              ),
+              CircleAvatar(
+                backgroundColor: Colors.grey.withOpacity(0.3),
+                child: IconButton(
+                  onPressed: () {
+                    CartCubit.get(context).addOrRemoveFromCarts(id: model.id.toString());
                   },
+                  // تغيير حالة الأيقونة بناءً على حالة الـCubit
+                  icon:  Icon(
+                    Icons.shopping_cart,
+                    color: CartCubit.get(context).cartsId.contains(model.id.toString()) ?Colors.red : Colors.white
+                  ),
                 ),
-              ],
-            ),
-          ],
-        ),
-      ),
-      CircleAvatar(
-        backgroundColor: Colors.grey.withOpacity(0.3),
-        child: IconButton(
-          onPressed: () {
-            CartCubit.get(context).addOrRemoveFromCarts(id: model.id.toString());
-          },
-          icon:  Icon(
-            Icons.shopping_cart,
-            color: CartCubit.get(context).cartsId.contains(model.id.toString()) ?Colors.red : Colors.white
-          ),
-        ),
-      )
-    ],
+              )
+            ],
+          );
+        },
+      );
+    },
   );
 }

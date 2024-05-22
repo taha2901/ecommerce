@@ -6,8 +6,6 @@ sealed class CartState  {
 
 final class CartInitial extends CartState {}
 
-
-
 final class CartsLoadState extends CartState {}
 
 final class CartsSuccesState extends CartState {
