@@ -160,7 +160,8 @@ Widget _productItem({
               Container(
                 decoration: BoxDecoration(
                   borderRadius: BorderRadius.circular(4),
-                  color: Colors.grey.withOpacity(0.2),
+                  // color: Colors.grey.withOpacity(0.2),
+                  color: Theme.of(context).primaryColor,
                 ),
                 padding:
                     const EdgeInsets.symmetric(vertical: 40, horizontal: 12),

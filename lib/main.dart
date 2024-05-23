@@ -41,7 +41,9 @@ class MyApp extends StatelessWidget {
     return MultiBlocProvider(
       providers: [
         BlocProvider(
-          create: (context) => HomeCubit()..getBannerData()..getHomeData(),
+          create: (context) => HomeCubit()
+            ..getBannerData()
+            ..getHomeData(),
         ),
         BlocProvider(
           create: (context) => CategoryCubit()..getCategoryData(),
@@ -53,17 +55,22 @@ class MyApp extends StatelessWidget {
           create: (context) => CartCubit()..getCarts(),
         ),
         BlocProvider(
-          create: (context) => ProfileCubit()..getUserData(), 
+          create: (context) => ProfileCubit()..getUserData(),
         ),
       ],
       child: MaterialApp(
         debugShowCheckedModeBanner: false,
-        home: startWidget,
+        themeMode: ThemeMode.system,
+        darkTheme: ThemeData(
+          colorScheme: ColorScheme.fromSeed(
+              seedColor: Colors.red, brightness: Brightness.dark),
+        ),
+        theme: ThemeData(
+          colorScheme: ColorScheme.fromSeed(seedColor: Colors.blue),
+          useMaterial3: true,
+        ),
+        home: LoginScreen(),
       ),
     );
   }
 }
-
-
-
-

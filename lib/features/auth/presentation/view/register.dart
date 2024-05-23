@@ -1,11 +1,15 @@
 import 'package:addinfo/core/helper/cach.dart';
+import 'package:addinfo/core/widget/colors.dart';
 import 'package:addinfo/core/widget/custom_button.dart';
 import 'package:addinfo/core/widget/custom_show_toast.dart';
 import 'package:addinfo/core/widget/custom_text_form_field.dart';
+import 'package:addinfo/core/widget/logo.dart';
 import 'package:addinfo/features/auth/presentation/manager/register/register_cubit.dart';
+import 'package:addinfo/features/auth/presentation/view/widgets/text_field.dart';
 import 'package:addinfo/features/layout/presentation/view/souq_layout.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:iconsax_flutter/iconsax_flutter.dart';
 
 // ignore: must_be_immutable
 class RegisterScreen extends StatelessWidget {
@@ -58,11 +62,13 @@ class RegisterScreen extends StatelessWidget {
                   child: Column(
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
+                      const Logo(),
+                      const SizedBox(
+                        height: 20,
+                      ),
                       Text(
                         'Register',
-                        style: Theme.of(context).textTheme.headline4!.copyWith(
-                              color: Colors.black,
-                            ),
+                        style: Theme.of(context).textTheme.headlineLarge,
                       ),
                       Text('Register now to browse our hot offers',
                           style: Theme.of(context)
@@ -72,54 +78,44 @@ class RegisterScreen extends StatelessWidget {
                       const SizedBox(
                         height: 30.0,
                       ),
-                      CustomTextField(
-                        hint: 'name',
-                        prefixIcon: const Icon(Icons.person),
+                      CustomField(
                         controller: nameController,
+                        lable: "Name",
                         onSubmitted: (value) {
                           emailController.text = value;
                         },
-                        type: TextInputType.name,
+                        icon: Iconsax.user,
+                        showBorder: false,
                       ),
-                      const SizedBox(
-                        height: 15.0,
-                      ),
-                      CustomTextField(
-                        hint: 'Email Address',
-                        type: TextInputType.emailAddress,
-                        prefixIcon: const Icon(Icons.email_outlined),
+                      CustomField(
                         controller: emailController,
-                        onSubmitted: (value) {
-                          emailController.text = value;
-                        },
+                        lable: "Email",
+                        icon: Iconsax.direct,
+                        showBorder: false,
                       ),
-                      const SizedBox(
-                        height: 15.0,
-                      ),
-                      CustomTextField(
-                        hint: 'password',
-                        prefixIcon: const Icon(Icons.lock_outlined),
+                      CustomField(
+                        showBorder: false,
                         obscure: RegisterCubit.get(context).isObsecure,
+                        controller: passWordController,
+                        lable: "Password",
+                        icon: Iconsax.password_check,
+                        isPass: true,
                         onSubmitted: (value) {
                           passWordController.text = value;
                         },
-                        controller: passWordController,
                         suffixIcon: RegisterCubit.get(context).suffix,
                         suffixPressed: () {
                           RegisterCubit.get(context).changePasswordVisibility();
                         },
                       ),
-                      const SizedBox(
-                        height: 15.0,
-                      ),
-                      CustomTextField(
-                        hint: 'phone',
-                        prefixIcon: const Icon(Icons.phone),
-                        type: TextInputType.phone,
+                      CustomField(
+                        controller: phoneController,
                         onSubmitted: (value) {
                           passWordController.text = value;
                         },
-                        controller: phoneController,
+                        lable: "Phone",
+                        icon: Icons.phone,
+                        showBorder: false,
                       ),
                       const SizedBox(
                         height: 30.0,
@@ -129,9 +125,9 @@ class RegisterScreen extends StatelessWidget {
                               child: CircularProgressIndicator(),
                             )
                           : CustomButton(
-                              text: 'Register',
-                              color: Colors.blue,
-                              textcolor: Colors.white,
+                              text: 'Register'.toUpperCase(),
+                              color: kPrimaryColor,
+                              textcolor: Colors.black,
                               circular: 10.0,
                               onTap: () {
                                 if (formKey.currentState!.validate()) {
