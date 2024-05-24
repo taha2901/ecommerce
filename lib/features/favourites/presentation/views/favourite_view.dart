@@ -1,5 +1,7 @@
+import 'package:addinfo/core/widget/colors.dart';
 import 'package:addinfo/features/favourites/presentation/manager/cubit/favourite_cubit.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/widgets.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
 class Favourite extends StatelessWidget {
@@ -33,16 +35,19 @@ class Favourite extends StatelessWidget {
 
         if (state is FavLoadState) {
           return const Center(child: CircularProgressIndicator());
-        } else if (state is FavSuccesState || state is AddOrRemoveFromFavoritesSuccessState) {
+        } else if (state is FavSuccesState ||
+            state is AddOrRemoveFromFavoritesSuccessState) {
           var cubitFav = FavouriteCubit.get(context).favoritemodel;
           return Scaffold(
             body: Padding(
-              padding: const EdgeInsets.symmetric(vertical: 12, horizontal: 12.5),
+              padding:
+                  const EdgeInsets.symmetric(vertical: 12, horizontal: 12.5),
               child: Column(
                 children: [
                   TextFormField(
                     decoration: InputDecoration(
-                      contentPadding: const EdgeInsets.symmetric(vertical: 7.5, horizontal: 12),
+                      contentPadding: const EdgeInsets.symmetric(
+                          vertical: 7.5, horizontal: 12),
                       prefixIcon: const Icon(Icons.search),
                       hintText: "Search",
                       border: OutlineInputBorder(
@@ -62,17 +67,21 @@ class Favourite extends StatelessWidget {
                         return Container(
                           decoration: BoxDecoration(
                             borderRadius: BorderRadius.circular(4),
-                            color: const Color.fromARGB(255, 109, 124, 35).withOpacity(0.4),
+                            color: thirdColor,
                           ),
                           margin: const EdgeInsets.symmetric(vertical: 10),
                           child: Row(
                             children: [
+                              const SizedBox(
+                                width: 7,
+                              ),
                               Image.network(
                                 product?.image ?? '',
                                 width: 100,
                                 height: 100,
                                 fit: BoxFit.fill,
-                                errorBuilder: (context, error, stackTrace) => const Icon(Icons.error),
+                                errorBuilder: (context, error, stackTrace) =>
+                                    const Icon(Icons.error),
                               ),
                               const SizedBox(
                                 width: 15,
@@ -87,7 +96,7 @@ class Favourite extends StatelessWidget {
                                       style: const TextStyle(
                                         fontSize: 16.5,
                                         fontWeight: FontWeight.bold,
-                                        color: Colors.blue,
+                                        color: mainColor,
                                         overflow: TextOverflow.ellipsis,
                                       ),
                                     ),
@@ -95,7 +104,8 @@ class Favourite extends StatelessWidget {
                                       height: 7,
                                     ),
                                     Row(
-                                      mainAxisAlignment: MainAxisAlignment.center,
+                                      mainAxisAlignment:
+                                          MainAxisAlignment.center,
                                       children: [
                                         Text('${product?.price} \$'),
                                         const SizedBox(
@@ -105,7 +115,8 @@ class Favourite extends StatelessWidget {
                                           '${product?.oldPrice} \$',
                                           style: const TextStyle(
                                             color: Colors.grey,
-                                            decoration: TextDecoration.lineThrough,
+                                            decoration:
+                                                TextDecoration.lineThrough,
                                           ),
                                         ),
                                       ],
@@ -115,16 +126,20 @@ class Favourite extends StatelessWidget {
                                     ),
                                     MaterialButton(
                                       onPressed: () {
-                                        FavouriteCubit.get(context).addOrRemoveFromFavorites(
+                                        FavouriteCubit.get(context)
+                                            .addOrRemoveFromFavorites(
                                           productID: product!.id.toString(),
                                         );
                                       },
-                                      textColor: Colors.white,
                                       shape: RoundedRectangleBorder(
                                         borderRadius: BorderRadius.circular(25),
                                       ),
-                                      color: Colors.blue,
-                                      child: const Text("Remove"),
+                                      color: kPrimaryColor,
+                                      child: Text(
+                                        "Remove".toUpperCase(),
+                                        style: const TextStyle(
+                                            color: Colors.black),
+                                      ),
                                     ),
                                   ],
                                 ),

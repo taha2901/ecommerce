@@ -4,11 +4,14 @@ import 'package:addinfo/features/favourites/presentation/manager/cubit/favourite
 import 'package:addinfo/features/home/data/home/product.dart';
 import 'package:addinfo/features/home/presentation/manager/cubit/home_cubit.dart';
 import 'package:addinfo/features/home/presentation/views/widgets/form_field.dart';
+import 'package:addinfo/features/home/presentation/views/widgets/item_details.dart';
 import 'package:addinfo/features/home/presentation/views/widgets/load_indicator.dart';
 import 'package:addinfo/features/home/presentation/views/widgets/page_view_home.dart';
 import 'package:addinfo/features/home/presentation/views/widgets/row_view.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/widgets.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:iconsax_flutter/iconsax_flutter.dart';
 import 'package:smooth_page_indicator/smooth_page_indicator.dart';
 
 class HomeView extends StatelessWidget {
@@ -26,7 +29,13 @@ class HomeView extends StatelessWidget {
             child: ListView(
               shrinkWrap: true,
               children: [
-                const FormFieldHome(),
+                const Row(
+                  children: [
+                    Expanded(child: FormFieldHome()),
+                    SizedBox(width: 12,),
+                    Icon(Iconsax.filter_square,size: 40,)
+                  ],
+                ),
                 const SizedBox(
                   height: 15,
                 ),
@@ -145,7 +154,7 @@ class HomeView extends StatelessWidget {
 }
 
 Widget _productItem({
-  required Product model,
+  required ProductHome model,
   required BuildContext context,
 }) {
   // BlocBuilder لفحص حالة الـFavouriteCubit
@@ -161,7 +170,6 @@ Widget _productItem({
                 decoration: BoxDecoration(
                   borderRadius: BorderRadius.circular(4),
                   // color: Colors.grey.withOpacity(0.2),
-                  color: Theme.of(context).primaryColor,
                 ),
                 padding:
                     const EdgeInsets.symmetric(vertical: 40, horizontal: 12),
@@ -169,13 +177,48 @@ Widget _productItem({
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
                     Expanded(
-                      child: Image.network(
-                        model.image!,
-                        height: double.infinity,
-                        width: double.infinity,
-                        fit: BoxFit.fill,
-                        errorBuilder: (context, error, stackTrace) =>
-                            const Icon(Icons.error),
+                      child: Stack(
+                        alignment: Alignment.topRight,
+                        children: [
+                          Center(
+                            child: GestureDetector(
+                              onTap: () {
+                                Navigator.push(
+                                  context,
+                                  MaterialPageRoute(
+                                    builder: (context) =>
+                                        FavItemDetails(product: model),
+                                  ),
+                                );
+                              },
+                              child: Image.network(
+                                model.image!,
+                                height: 100,
+                                width: 100,
+                                fit: BoxFit.fill,
+                                errorBuilder: (context, error, stackTrace) =>
+                                    const Icon(Icons.error),
+                              ),
+                            ),
+                          ),
+                          GestureDetector(
+                            child: Icon(
+                              Icons.favorite,
+                              size: 20,
+                              color: FavouriteCubit.get(context)
+                                      .favoriteID
+                                      .contains(model.id.toString())
+                                  ? Colors.red
+                                  : Colors.grey,
+                            ),
+                            onTap: () {
+                              // إضافة أو إزالة المنتج من المفضلة
+                              FavouriteCubit.get(context)
+                                  .addOrRemoveFromFavorites(
+                                      productID: model.id.toString());
+                            },
+                          ),
+                        ],
                       ),
                     ),
                     const SizedBox(
@@ -219,44 +262,44 @@ Widget _productItem({
                           ),
                         ),
                         // تغيير حالة الأيقونة بناءً على حالة الـCubit
-                        GestureDetector(
-                          child: Icon(
-                            Icons.favorite,
-                            size: 20,
-                            color: FavouriteCubit.get(context)
-                                    .favoriteID
-                                    .contains(model.id.toString())
-                                ? Colors.red
-                                : Colors.grey,
-                          ),
-                          onTap: () {
-                            // إضافة أو إزالة المنتج من المفضلة
-                            FavouriteCubit.get(context)
-                                .addOrRemoveFromFavorites(
-                                    productID: model.id.toString());
-                          },
-                        ),
+                        // GestureDetector(
+                        //   child: Icon(
+                        //     Icons.favorite,
+                        //     size: 20,
+                        //     color: FavouriteCubit.get(context)
+                        //             .favoriteID
+                        //             .contains(model.id.toString())
+                        //         ? Colors.red
+                        //         : Colors.grey,
+                        //   ),
+                        //   onTap: () {
+                        //     // إضافة أو إزالة المنتج من المفضلة
+                        //     FavouriteCubit.get(context)
+                        //         .addOrRemoveFromFavorites(
+                        //             productID: model.id.toString());
+                        //   },
+                        // ),
                       ],
                     ),
                   ],
                 ),
               ),
-              CircleAvatar(
-                backgroundColor: Colors.grey.withOpacity(0.3),
-                child: IconButton(
-                  onPressed: () {
-                    CartCubit.get(context)
-                        .addOrRemoveFromCarts(id: model.id.toString());
-                  },
-                  // تغيير حالة الأيقونة بناءً على حالة الـCubit
-                  icon: Icon(Icons.shopping_cart,
-                      color: CartCubit.get(context)
-                              .cartsId
-                              .contains(model.id.toString())
-                          ? Colors.red
-                          : Colors.white),
-                ),
-              )
+              // CircleAvatar(
+              //   backgroundColor: Colors.grey.withOpacity(0.3),
+              //   child: IconButton(
+              //     onPressed: () {
+              //       CartCubit.get(context)
+              //           .addOrRemoveFromCarts(id: model.id.toString());
+              //     },
+              //     // تغيير حالة الأيقونة بناءً على حالة الـCubit
+              //     icon: Icon(Icons.shopping_cart,
+              //         color: CartCubit.get(context)
+              //                 .cartsId
+              //                 .contains(model.id.toString())
+              //             ? Colors.red
+              //             : Colors.white),
+              //   ),
+              // )
             ],
           );
         },

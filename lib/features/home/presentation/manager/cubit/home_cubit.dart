@@ -43,7 +43,7 @@ class HomeCubit extends Cubit<HomeState> {
     });
   }
 
-  List<Product> filteredProducts = [];
+  List<ProductHome> filteredProducts = [];
 
   void filterProducts({required String input}) {
     if (home != null) {

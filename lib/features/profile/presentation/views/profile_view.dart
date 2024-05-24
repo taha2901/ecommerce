@@ -1,9 +1,9 @@
-import 'package:addinfo/core/widget/colors.dart';
 import 'package:addinfo/features/profile/presentation/manager/profile/profile_cubit.dart';
 import 'package:addinfo/features/profile/presentation/views/widgets/change_password_screen.dart';
 import 'package:addinfo/features/profile/presentation/views/widgets/update_user_data_screen.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:iconsax_flutter/iconsax_flutter.dart';
 
 class Profile extends StatelessWidget {
   const Profile({super.key});
@@ -33,37 +33,99 @@ class Profile extends StatelessWidget {
         return Scaffold(
           body: cubitChange.profileModel != null
               ? Container(
-                  padding: const EdgeInsets.symmetric(vertical: 12, horizontal: 16),
+                  padding:
+                      const EdgeInsets.symmetric(vertical: 12, horizontal: 16),
                   width: double.infinity,
-                  child: Column(
-                    children: [
-                      CircleAvatar(
-                        backgroundImage: NetworkImage(ProfileCubit.get(context).profileModel!.data!.image!),
-                        radius: 45,
-                      ),
-                      const SizedBox(height: 15),
-                      Text(ProfileCubit.get(context).profileModel!.data!.name!),
-                      const SizedBox(height: 10),
-                      Text(ProfileCubit.get(context).profileModel!.data!.email!),
-                      const SizedBox(height: 15),
-                      MaterialButton(
-                        onPressed: () {
-                          Navigator.push(context, MaterialPageRoute(builder: (context) => ChangePasswordScreen()));
-                        },
-                        color: mainColor,
-                        textColor: Colors.white,
-                        child: const Text("Change Password"),
-                      ),
-                      const SizedBox(height: 15),
-                      MaterialButton(
-                        onPressed: () {
-                          Navigator.push(context, MaterialPageRoute(builder: (context) => UpdateUserDataScreen()));
-                        },
-                        color: mainColor,
-                        textColor: Colors.white,
-                        child: const Text("Update Data"),
-                      ),
-                    ],
+                  child: SingleChildScrollView(
+                    child: Column(
+                      children: [
+                        CircleAvatar(
+                          backgroundImage: NetworkImage(ProfileCubit.get(context)
+                              .profileModel!
+                              .data!
+                              .image!),
+                          radius: 45,
+                        ),
+                        const SizedBox(height: 15),
+                        // Text(ProfileCubit.get(context).profileModel!.data!.name!),
+                        // const SizedBox(height: 10),
+                        // Text(ProfileCubit.get(context).profileModel!.data!.email!),
+                        // const SizedBox(height: 15),
+                        // MaterialButton(
+                        //   onPressed: () {
+                        //     Navigator.push(context, MaterialPageRoute(builder: (context) => ChangePasswordScreen()));
+                        //   },
+                        //   color: mainColor,
+                        //   textColor: Colors.white,
+                        //   child: const Text("Change Password"),
+                        // ),
+                        // const SizedBox(height: 15),
+                        // MaterialButton(
+                        //   onPressed: () {
+                        //     Navigator.push(context, MaterialPageRoute(builder: (context) => UpdateUserDataScreen()));
+                        //   },
+                        //   color: mainColor,
+                        //   textColor: Colors.white,
+                        //   child: const Text("Update Data"),
+                        // ),
+                    
+                        Card(
+                          child: ListTile(
+                            leading: const Icon(Iconsax.user_octagon),
+                            trailing: IconButton(
+                                onPressed: () {}, icon: const Icon(Iconsax.edit)),
+                            title: TextField(
+                              enabled: false,
+                              decoration: InputDecoration(
+                                labelText: ProfileCubit.get(context)
+                                    .profileModel!
+                                    .data!
+                                    .name!,
+                                border: InputBorder.none,
+                              ),
+                            ),
+                          ),
+                        ),
+                    
+                        Card(
+                          child: ListTile(
+                              leading: const Icon(Iconsax.direct),
+                              title: const Text("Email"),
+                              subtitle: Text(ProfileCubit.get(context)
+                                  .profileModel!
+                                  .data!
+                                  .email!)),
+                        ),
+                        Card(
+                          child: ListTile(
+                            leading: const Icon(Iconsax.timer_1),
+                            title: const Text("Change Password"),
+                            onTap: () {
+                              Navigator.push(
+                                  context,
+                                  MaterialPageRoute(
+                                      builder: (context) =>
+                                          ChangePasswordScreen()));
+                            },
+                          ),
+                        ),
+                        Card(
+                          child: ListTile(
+                            leading: const Icon(Iconsax.information),
+                            trailing: IconButton(
+                                onPressed: () {}, icon: const Icon(Iconsax.edit)),
+                            title: const Text("Update Profile"),
+                            onTap: () {
+                              Navigator.push(
+                                  context,
+                                  MaterialPageRoute(
+                                      builder: (context) =>
+                                          UpdateUserDataScreen()));
+                            },
+                          ),
+                        ),
+                      ],
+                    ),
                   ),
                 )
               : const Center(child: CircularProgressIndicator()),

@@ -2,6 +2,7 @@ import 'package:addinfo/core/widget/colors.dart';
 import 'package:addinfo/features/profile/presentation/manager/profile/profile_cubit.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:iconsax_flutter/iconsax_flutter.dart';
 
 
 class UpdateUserDataScreen extends StatelessWidget {
@@ -28,27 +29,61 @@ class UpdateUserDataScreen extends StatelessWidget {
         child: ListView(
           children:
           [
-            TextField(
-              controller: nameController,
-              decoration: const InputDecoration(
-                  border: OutlineInputBorder(),
-                  labelText: "User Name"
+            // TextField(
+            //   controller: nameController,
+            //   decoration: const InputDecoration(
+            //       border: OutlineInputBorder(),
+            //       labelText: "User Name"
+            //   ),
+            // ),
+
+             Card(
+              child: ListTile(
+                title: TextField(
+                  controller: nameController,
+                  decoration:  const InputDecoration(
+                    border: InputBorder.none,
+                    labelText: "User Name",
+                      hintText: "User Name"),
+                ),
               ),
             ),
             const SizedBox(height: 15,),
-            TextField(
-              controller: phoneController,
-              decoration: const InputDecoration(
-                  border: OutlineInputBorder(),
-                  labelText: "Phone"
+            // TextField(
+            //   controller: phoneController,
+            //   decoration: const InputDecoration(
+            //       border: OutlineInputBorder(),
+            //       labelText: "Phone"
+            //   ),
+            // ),
+
+            Card(
+              child: ListTile(
+                title: TextField(
+                  controller: phoneController,
+                  decoration:  const InputDecoration(
+                    border: InputBorder.none,
+                      labelText: "Phone"),
+                ),
               ),
             ),
             const SizedBox(height: 15,),
-            TextField(
-              controller: emailController,
-              decoration: const InputDecoration(
-                  border: OutlineInputBorder(),
-                  labelText: "Email"
+            // TextField(
+            //   controller: emailController,
+            //   decoration: const InputDecoration(
+            //       border: OutlineInputBorder(),
+            //       labelText: "Email"
+            //   ),
+            // ),
+
+             Card(
+              child: ListTile(
+                title: TextField(
+                  controller: emailController,
+                  decoration:  const InputDecoration(
+                    border: InputBorder.none,
+                      labelText: "Email"),
+                ),
               ),
             ),
             const SizedBox(height: 20,),
@@ -79,8 +114,9 @@ class UpdateUserDataScreen extends StatelessWidget {
                       showSnackBarItem(context, 'Please, Enter all Data !!', false);
                     }
                   },
-                  color: mainColor,
-                  textColor: Colors.white,
+                  color: kPrimaryColor,
+                  textColor: Colors.black,
+                  height: MediaQuery.of(context).size.height*0.07,
                   child: Text(state is UpdateUserLoaded ? "Loading..." : "Update"),
                 );
               },

@@ -1,5 +1,4 @@
 
-import 'package:addinfo/features/home/data/home/home.dart';
 import 'package:addinfo/features/home/presentation/manager/cubit/home_cubit.dart';
 import 'package:flutter/material.dart';
 
@@ -23,7 +22,7 @@ class FormFieldHome extends StatelessWidget {
         enabledBorder: OutlineInputBorder(
             borderRadius: BorderRadius.circular(50),
             borderSide: const BorderSide(color: Colors.grey)),
-        contentPadding: const EdgeInsets.symmetric(vertical: 17),
+        contentPadding: const EdgeInsets.symmetric(vertical: 10),
         border: OutlineInputBorder(
           borderSide: const BorderSide(color: Colors.grey),
           borderRadius: BorderRadius.circular(50),

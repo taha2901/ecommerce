@@ -3,7 +3,7 @@ import 'product.dart';
 class CartItem {
 	int? id;
 	int? quantity;
-	Product? product;
+	ProductCart? product;
 
 	CartItem({this.id, this.quantity, this.product});
 
@@ -12,7 +12,7 @@ class CartItem {
 				quantity: json['quantity'] as int?,
 				product: json['product'] == null
 						? null
-						: Product.fromJson(json['product'] as Map<String, dynamic>),
+						: ProductCart.fromJson(json['product'] as Map<String, dynamic>),
 			);
 
 	Map<String, dynamic> toJson() => {

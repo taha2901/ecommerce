@@ -45,6 +45,7 @@ class Carts extends StatelessWidget {
             padding: const EdgeInsets.symmetric(horizontal: 12.0, vertical: 10),
             child: Column(
               children: [
+                // Text('My Cart',style: Theme.of(context).textTheme.displayMedium,),
                 Expanded(
                   child: ListView.separated(
                     itemCount: cubit.data!.cartItems!.length,
@@ -62,7 +63,9 @@ class Carts extends StatelessWidget {
                         builder: (context, favState) {
                           return Container(
                             padding: const EdgeInsets.all(10),
-                            decoration: const BoxDecoration(color: fourthColor),
+                            decoration: const BoxDecoration(
+                              color: thirdColor,
+                            ),
                             child: Row(
                               children: [
                                 Image.network(
@@ -76,7 +79,8 @@ class Carts extends StatelessWidget {
                                 const SizedBox(width: 12.5),
                                 Expanded(
                                   child: Column(
-                                    crossAxisAlignment: CrossAxisAlignment.start,
+                                    crossAxisAlignment:
+                                        CrossAxisAlignment.start,
                                     children: [
                                       Text(
                                         product.name!,
@@ -99,8 +103,8 @@ class Carts extends StatelessWidget {
                                             Text(
                                               "${product.oldPrice!} \$",
                                               style: const TextStyle(
-                                                  decoration:
-                                                      TextDecoration.lineThrough),
+                                                  decoration: TextDecoration
+                                                      .lineThrough),
                                             ),
                                         ],
                                       ),
@@ -115,8 +119,8 @@ class Carts extends StatelessWidget {
                                             onPressed: () {
                                               FavouriteCubit.get(context)
                                                   .addOrRemoveFromFavorites(
-                                                      productID:
-                                                          product.id.toString());
+                                                      productID: product.id
+                                                          .toString());
                                             },
                                             child: Icon(
                                               Icons.favorite,
@@ -134,8 +138,8 @@ class Carts extends StatelessWidget {
                                               // تنفيذ منطق الحذف هنا
                                               CartCubit.get(context)
                                                   .addOrRemoveFromCarts(
-                                                      id:
-                                                          product.id.toString());
+                                                      id: product.id
+                                                          .toString());
                                               // CartCubit.get(context).addOrRemoveFromCarts(id: product.id.toString());
                                             },
                                             child: const Icon(

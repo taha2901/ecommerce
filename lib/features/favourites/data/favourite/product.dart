@@ -1,4 +1,4 @@
-class Product {
+class ProductFav {
   int? id;
   double? price;
   double? oldPrice;
@@ -7,7 +7,7 @@ class Product {
   String? name;
   String? description;
 
-  Product({
+  ProductFav({
     this.id, 
     this.price, 
     this.oldPrice, 
@@ -17,7 +17,7 @@ class Product {
     this.description, 
   });
 
-  factory Product.fromJson(Map<String, dynamic> json) => Product(
+  factory ProductFav.fromJson(Map<String, dynamic> json) => ProductFav(
     id: json['id'] as int?,
     price: (json['price'] as num?)?.toDouble(), // هنا يتم التحويل إلى double
     oldPrice: (json['old_price'] as num?)?.toDouble(), // هنا يتم التحويل إلى double

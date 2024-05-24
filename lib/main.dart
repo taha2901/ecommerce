@@ -60,16 +60,8 @@ class MyApp extends StatelessWidget {
       ],
       child: MaterialApp(
         debugShowCheckedModeBanner: false,
-        themeMode: ThemeMode.system,
-        darkTheme: ThemeData(
-          colorScheme: ColorScheme.fromSeed(
-              seedColor: Colors.red, brightness: Brightness.dark),
-        ),
-        theme: ThemeData(
-          colorScheme: ColorScheme.fromSeed(seedColor: Colors.blue),
-          useMaterial3: true,
-        ),
-        home: LoginScreen(),
+       
+        home: startWidget,
       ),
     );
   }
