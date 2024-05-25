@@ -59,12 +59,12 @@ class FavItemDetails extends StatelessWidget {
                       children: [
                         const Text(
                           'total price',
-                          style: TextStyle(color: Colors.grey, fontSize: 12),
+                          style: TextStyle( fontSize: 12),
                         ),
                         Text(
                           '\$${product.price}',
                           style: const TextStyle(
-                              color: Colors.black,
+                              // color: Colors.black,
                               fontWeight: FontWeight.bold,
                               fontSize: 18),
                         ),
@@ -81,9 +81,9 @@ class FavItemDetails extends StatelessWidget {
                               .addOrRemoveFromCarts(id: product.id.toString());
                         },
                         text: 'Add To Cart',
-                        color: Colors.black,
+                        color: Theme.of(context).colorScheme.onBackground,
                         circular: 5,
-                        textcolor: Colors.white,
+                        textcolor: Theme.of(context).colorScheme.background,
                       ),
                     ),
                   ],

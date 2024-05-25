@@ -1,4 +1,3 @@
-
 import 'package:addinfo/features/home/presentation/manager/cubit/home_cubit.dart';
 import 'package:flutter/material.dart';
 
@@ -22,6 +21,8 @@ class PageViewInHome extends StatelessWidget {
                 margin: const EdgeInsets.only(right: 12.5),
                 child: Image.network(
                   fit: BoxFit.fill,
+                  errorBuilder: (context, error, stackTrace) =>
+                      const Icon(Icons.error),
                   '${HomeCubit.get(context).banners!.data![index].image}',
                 ),
               ),

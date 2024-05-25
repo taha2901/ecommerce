@@ -16,9 +16,9 @@ class ChangePasswordScreen extends StatelessWidget {
     return Scaffold(
       appBar: AppBar(
         title: const Text("Change Password"),
-        backgroundColor: thirdColor,
+        // backgroundColor: thirdColor,
         elevation: 0,
-        foregroundColor: Colors.black,
+        // foregroundColor: Colors.black,
       ),
       body: Padding(
         padding: const EdgeInsets.all(16.0),
@@ -36,7 +36,7 @@ class ChangePasswordScreen extends StatelessWidget {
               child: ListTile(
                 leading: const Icon(Iconsax.password_check),
                 title: TextField(
-                  controller: newPasswordController,
+                  controller: currentPasswordController,
                   decoration: const InputDecoration(
                     border: InputBorder.none,
                       hintText: "Current Password"),
@@ -50,7 +50,7 @@ class ChangePasswordScreen extends StatelessWidget {
               child: ListTile(
                 leading: const Icon(Iconsax.password_check),
                 title: TextField(
-                  controller: currentPasswordController,
+                  controller: newPasswordController,
                   decoration: const InputDecoration(
                     border: InputBorder.none,
                       hintText: "New Password"),

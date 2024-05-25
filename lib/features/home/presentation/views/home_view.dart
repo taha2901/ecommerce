@@ -193,9 +193,10 @@ Widget _productItem({
                               },
                               child: Image.network(
                                 model.image!,
+                                // color: Theme.of(context).colorScheme.onBackground,
                                 height: 100,
                                 width: 100,
-                                fit: BoxFit.fill,
+                                fit: BoxFit.cover,
                                 errorBuilder: (context, error, stackTrace) =>
                                     const Icon(Icons.error),
                               ),
@@ -204,7 +205,7 @@ Widget _productItem({
                           GestureDetector(
                             child: Icon(
                               Icons.favorite,
-                              size: 20,
+                              size: 23,
                               color: FavouriteCubit.get(context)
                                       .favoriteID
                                       .contains(model.id.toString())

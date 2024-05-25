@@ -64,7 +64,7 @@ class Carts extends StatelessWidget {
                           return Container(
                             padding: const EdgeInsets.all(10),
                             decoration: const BoxDecoration(
-                              color: thirdColor,
+                              // color: thirdColor,
                             ),
                             child: Row(
                               children: [
@@ -85,7 +85,7 @@ class Carts extends StatelessWidget {
                                       Text(
                                         product.name!,
                                         style: const TextStyle(
-                                            color: mainColor,
+                                            // color: mainColor,
                                             fontSize: 17,
                                             fontWeight: FontWeight.bold,
                                             overflow: TextOverflow.ellipsis),
@@ -166,7 +166,8 @@ class Carts extends StatelessWidget {
                     style: const TextStyle(
                         fontWeight: FontWeight.bold,
                         fontSize: 18,
-                        color: mainColor),
+                        // color: mainColor,
+                        ),
                   ),
                 )
               ],

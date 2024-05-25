@@ -20,9 +20,9 @@ class UpdateUserDataScreen extends StatelessWidget {
     return Scaffold(
       appBar: AppBar(
         title: const Text("Update Data"),
-        backgroundColor: thirdColor,
+        // backgroundColor: thirdColor,
         elevation: 0,
-        foregroundColor: Colors.black,
+        // foregroundColor: Colors.black,
       ),
       body: Padding(
         padding: const EdgeInsets.all(16.0),

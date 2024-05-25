@@ -1,4 +1,6 @@
+import 'package:addinfo/core/widget/colors.dart';
 import 'package:addinfo/features/layout/presentation/manager/layout_cubit/layout_cubit.dart';
+import 'package:addinfo/features/layout/presentation/view/widgets/custom_sign_out.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
@@ -32,7 +34,7 @@ class SouqLayout extends StatelessWidget {
                 ),
                 IconButton(
                   onPressed: () {
-                    // signOut(context);
+                    signOut(context);
                   },
                   icon: const Icon(Icons.logout_outlined),
                 ),
@@ -40,7 +42,7 @@ class SouqLayout extends StatelessWidget {
             ),
             body: cubit.screens[cubit.currentIndex],
             bottomNavigationBar: BottomNavigationBar(
-              selectedItemColor: Colors.black,
+              selectedItemColor: kPrimaryColor,
               unselectedItemColor: Colors.grey,
               currentIndex: cubit.currentIndex,
               onTap: (index) {

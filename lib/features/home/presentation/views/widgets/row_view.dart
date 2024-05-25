@@ -1,4 +1,3 @@
-
 import 'package:flutter/material.dart';
 
 class RowToView extends StatelessWidget {
@@ -15,12 +14,18 @@ class RowToView extends StatelessWidget {
         Text(
           text,
           style: const TextStyle(
-              color: Colors.black, fontSize: 20, fontWeight: FontWeight.bold),
+            // color: Colors.black,
+            fontSize: 20,
+            fontWeight: FontWeight.bold,
+          ),
         ),
         const Text(
           "View all",
           style: TextStyle(
-              color: Colors.grey, fontSize: 14, fontWeight: FontWeight.bold),
+            // color: Colors.grey,
+            fontSize: 14,
+            fontWeight: FontWeight.bold,
+          ),
         ),
       ],
     );

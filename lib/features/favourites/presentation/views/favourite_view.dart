@@ -67,7 +67,7 @@ class Favourite extends StatelessWidget {
                         return Container(
                           decoration: BoxDecoration(
                             borderRadius: BorderRadius.circular(4),
-                            color: thirdColor,
+                            // color: thirdColor,
                           ),
                           margin: const EdgeInsets.symmetric(vertical: 10),
                           child: Row(
@@ -96,7 +96,7 @@ class Favourite extends StatelessWidget {
                                       style: const TextStyle(
                                         fontSize: 16.5,
                                         fontWeight: FontWeight.bold,
-                                        color: mainColor,
+                                        // color: mainColor,
                                         overflow: TextOverflow.ellipsis,
                                       ),
                                     ),
@@ -107,16 +107,27 @@ class Favourite extends StatelessWidget {
                                       mainAxisAlignment:
                                           MainAxisAlignment.center,
                                       children: [
-                                        Text('${product?.price} \$'),
+                                        Text(
+                                          '${product?.price} \$',
+                                          style: TextStyle(
+                                            // color: Theme.of(context)
+                                            //     .colorScheme
+                                            //     .background,
+                                          ),
+                                        ),
                                         const SizedBox(
                                           width: 5,
                                         ),
                                         Text(
                                           '${product?.oldPrice} \$',
-                                          style: const TextStyle(
+                                          style: TextStyle(
                                             color: Colors.grey,
+                                            // color: Theme.of(context)
+                                            //     .colorScheme
+                                            //     .background,
                                             decoration:
                                                 TextDecoration.lineThrough,
+                                                // backgroundColor: Colors.grey,
                                           ),
                                         ),
                                       ],
@@ -138,7 +149,8 @@ class Favourite extends StatelessWidget {
                                       child: Text(
                                         "Remove".toUpperCase(),
                                         style: const TextStyle(
-                                            color: Colors.black),
+                                            // color: Colors.black,
+                                            ),
                                       ),
                                     ),
                                   ],
